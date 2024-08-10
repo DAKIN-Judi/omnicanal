@@ -1,6 +1,9 @@
-const auth = (req, res, next) => {
+const Users = require("../../models/users");
+
+const auth = async (req, res, next) => {
 
     const headers = req.headers['authorization'];
+
     if (!headers) {
         return res.status(401).json({ message: 'Authorization Header not found' });
     }
@@ -9,9 +12,9 @@ const auth = (req, res, next) => {
     const credentials = Buffer.from(encodedCredentials, 'base64').toString('ascii');
     const [username, password] = credentials.split(':');
 
-    const user = 'user'; // get user from db
+    const user = await Users.findOne({ where: { username } });
 
-    if (user.name === username && user.password === password) {
+    if (user.dataValues.username === username && user.dataValues.password === password) {
         return next();
     } else {
         return res.status(401).json({ message: 'Invalid Credentials' });

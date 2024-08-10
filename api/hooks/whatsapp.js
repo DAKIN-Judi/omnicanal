@@ -14,37 +14,43 @@ router.post(
     auth,
     async (req, res) => {
 
-        const { message_body, external_id } = req.body;
+        try {
 
-        var hook = await Hooks.create({
-            external_id,
-            data: req.body
-        });
+            const { message_body, external_id } = req.body;
 
-        console.log('check hook', hook);
+            var hook = await Hooks.create({
+                external_id,
+                data: req.body
+            });
 
-        var conversation = await Conversations.create({
-            hookId: hook.id,
-            status: created,
-            canal: 'whatsapp',
-            started_at: new Date()
-            
-        });
+            console.log('check hook', hook);
 
-        console.log('check conversation', conversation);
+            var conversation = await Conversations.create({
+                hookId: hook.dataValues.id,
+                status: 'created',
+                canal: 'whatsapp',
+                started_at: new Date()
+
+            });
+
+            console.log('check conversation', conversation);
 
 
-        var message = await Messages.create({
-            content: message_body,
-            user_response: false,
-            client_response: true,
-            conversationId: conversation.id,
-            level: 0
-        });
+            var message = await Messages.create({
+                content: message_body,
+                user_response: false,
+                client_response: true,
+                conversationId: conversation.dataValues.id,
+                level: 0
+            });
 
-        console.log('check message', message);
+            console.log('check message', message);
 
-        res.status(201).json({ status: 'success', message: 'User created', user: user.dataValues});
+            res.status(201).json({ status: 'success', message: 'User created', user: user.dataValues });
+
+        } catch (error) {
+            console.error('une erreur est survenu', error)
+        }
 
     });
 

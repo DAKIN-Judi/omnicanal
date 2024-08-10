@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('./utils/dotenv');
-const sequelize = require('./databases/db');
+const SyncDatabase = require('./models/synce');
+
 
 const ping = require('./api/ping');
 const createUser = require('./api/users/create');
@@ -18,6 +19,8 @@ app.use(cors({
   origin: true,
   credentials: true
 }));
+
+SyncDatabase();
 
 app.use(express.static('public'));
 
@@ -37,13 +40,6 @@ app.use(whatsappHook);
 // app.use(whatsappHook);
 // app.use(whatsappHook);
 
-sequelize.sync()
-  .then(() => {
-    console.log('Database synced');
-  })
-  .catch(error => {
-    console.error('Unable to sync database:', error);
-  });
 
 const PORT = process.env.PORT || 3001;
 const ADDRESS = process.env.APP_URL || '0.0.0.0';

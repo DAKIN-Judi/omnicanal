@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../databases/db');
-const Conversations = require('./Conversations'); // Import the Conversations model
+const Conversations = require('./conversations'); // Import the Conversations model
 
 const Messages = sequelize.define('Messages', {
     id: {
@@ -12,7 +12,7 @@ const Messages = sequelize.define('Messages', {
     conversationId: {
         type: DataTypes.INTEGER,
         references: {
-            model: Conversations, // Use the model reference directly
+            model: 'conversations', // Use the model reference directly
             key: 'id'
         }
     },
