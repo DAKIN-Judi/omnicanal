@@ -19,7 +19,7 @@ describe('test users', () => {
 
                 console.log(response.body)
 
-                assert.strictEqual(response.statusCode, 200);
+                assert.strictEqual(response.statusCode, 201);
                 
                 done();
             }).catch(done);

@@ -40,13 +40,14 @@ router.post(
                 content: message_body,
                 user_response: false,
                 client_response: true,
+                status: 'sent',
                 conversationId: conversation.dataValues.id,
                 level: 0
             });
 
             console.log('check message', message);
 
-            res.status(201).json({ status: 'success', message: 'User created', user: user.dataValues });
+            res.status(201).json({ status: 'success', message, conversation, hook });
 
         } catch (error) {
             console.error('une erreur est survenu', error)

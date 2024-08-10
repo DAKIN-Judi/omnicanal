@@ -18,7 +18,7 @@ router.post('/api/login', async (req, res) => {
 
         const user = await Users.findOne({ where: { username } });
 
-        if (!user.dataValues) {
+        if (!user?.dataValues) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
 
@@ -33,7 +33,7 @@ router.post('/api/login', async (req, res) => {
         res.status(200).json({ authDigest });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'An error occurred during login' });
+        res.status(500).json({ error: 'An error occurred during login', error });
     }
 });
 
