@@ -1,0 +1,50 @@
+{
+  "name": "@sessigon/ticket_seller_api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "canvas": "^2.11.2",
+    "chai": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "fedapay": "^1.1.10",
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.1",
+    "mongoose": "^8.0.4",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.9",
+    "os": "^0.1.2",
+    "plaintextparser": "^1.0.3",
+    "qrcode": "^1.5.3",
+    "range-parser": "^1.2.1",
+    "supertest": "^6.3.4",
+    "typescript": "^5.0.4",
+    "uploader": "^3.30.0",
+    "uuid": "^9.0.1",
+    "validator": "^13.9.0",
+    "world-svg": "^0.0.2",
+    "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "mocha": "^10.4.0",
+    "request": "^2.88.2"
+  },
+  "engines": {
+    "node": "^20.11",
+    "npm": "^10.2"
+  }
+}
