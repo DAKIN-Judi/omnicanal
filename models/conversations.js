@@ -1,38 +1,36 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../databases/db'); // Import the connection instance
-const Users = require('./users');
-const Reasons = require('./reasons');
-const Messages = require('./messages');
-const Hooks = require('./hooks');
+const sequelize = require('../databases/db');
 
 const Conversations = sequelize.define('Conversations', {
 
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true,
+        primaryKey: true
     },
 
     attribuateTo: {
         type: DataTypes.INTEGER,
         references: {
-            model: Users,
+            model: 'users',
             key: 'id'
-        }
+        },
+        allowNull: true
     },
 
     reasonId: {
         type: DataTypes.INTEGER,
         references: {
-            model: Reasons,
+            model: 'reasons',
             key: 'id'
-        }
+        },
+        allowNull: true
     },
 
     hook_id: {
         type: DataTypes.INTEGER,
         references: {
-            model: Hooks,
+            model: 'hooks',
             key: 'id'
         }
     },
@@ -45,24 +43,12 @@ const Conversations = sequelize.define('Conversations', {
 
     canal: {
         type: DataTypes.ENUM('sms', 'whatsapp', 'messenger', 'telegram'),
-        allowNull: false,
-    },
-
-
-    last_name: {
-        type: DataTypes.STRING,
         allowNull: false
     },
 
-
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+    attribuatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     },
 
     closeddAt: {
@@ -72,18 +58,19 @@ const Conversations = sequelize.define('Conversations', {
 
     startedAt: {
         type: DataTypes.DATE,
-        allowNull: true,
-    },
+        allowNull: true
+    }
 
 }, {
-
     tableName: 'conversations',
     timestamps: true
 });
 
-Conversations.hasOne(Reasons, {
-    as: 'reason'
-});
+module.exports = Conversations;
+
+// Conversations.hasOne(Reasons, {
+//     as: 'reason'
+// });
 
 // Conversations.hasMany(Messages, {
 //     as: 'messages'
@@ -93,5 +80,3 @@ Conversations.hasOne(Reasons, {
 //     foreignKey: 'attribuateTo',
 //     as: 'user'
 // })
-
-module.exports = Conversations;

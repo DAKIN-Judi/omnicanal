@@ -42,13 +42,13 @@ const Users = sequelize.define('Users', {
         defaultValue: DataTypes.NOW,
     }
 }, {
-    tableName: 'conversations',
+    tableName: 'users',
     timestamps: true
 });
 
-Users.hasMany(Conversations, {
-    foreignKey: 'attribuateTo',
-    as: 'conversations'
-});
+// Users.hasMany(Conversations, {
+//     foreignKey: 'attribuateTo',
+//     as: 'conversations'
+// });
 
 module.exports = Users;

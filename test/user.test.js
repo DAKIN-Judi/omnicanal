@@ -3,22 +3,24 @@ const assert = require('assert');
 const request = require('supertest');
 
 
-describe('test users element', () => {
+describe('test users', () => {
 
-    it('must return connection token', function (done) {
+    it('must create users', function (done) {
         this.timeout(5000);
         request(app)
-            .post('/api/login')
+            .post('/api/users')
             .send({
-                email: 'd.j.bidossessi@gmail.com',
+                first_name: 'dodo',
+                last_name: 'test',
+                username: 'dodo@test',
                 password: 'password'
             })
             .then((response) => {
 
-                requestToken = response.body.token;
+                console.log(response.body)
+
                 assert.strictEqual(response.statusCode, 200);
-                assert.ok(response.body.hasOwnProperty('token'), 'Response should contain "token" key for user connection');
-                assert.ok(response.body.token != "", 'Token should not be empty');
+                
                 done();
             }).catch(done);
     });

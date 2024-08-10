@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../databases/db'); // Import the connection instance
-const Conversations = require('./conversations');
+const sequelize = require('../databases/db');
+const Conversations = require('./Conversations'); // Import the Conversations model
 
 const Messages = sequelize.define('Messages', {
-
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -13,11 +12,16 @@ const Messages = sequelize.define('Messages', {
     conversationId: {
         type: DataTypes.INTEGER,
         references: {
-            model: Conversations,
+            model: Conversations, // Use the model reference directly
             key: 'id'
         }
     },
-    
+
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
     status: {
         type: DataTypes.ENUM('pending', 'sent', 'read'),
         allowNull: false
@@ -42,8 +46,9 @@ const Messages = sequelize.define('Messages', {
     timestamps: true
 });
 
-// Messages.belongsTo(Conversations, {
-//     as: 'conversation'
-// });
+Messages.belongsTo(Conversations, {
+    foreignKey: 'conversationId', 
+    as: 'conversation'
+});
 
 module.exports = Messages;

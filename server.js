@@ -3,6 +3,10 @@ const dotenv = require('./utils/dotenv');
 const sequelize = require('./databases/db');
 
 const ping = require('./api/ping');
+const createUser = require('./api/users/create');
+const login = require('./api/middlewares/login');
+
+const whatsappHook = require('./api/hooks/whatsapp')
 
 const cors = require('cors');
 
@@ -20,6 +24,18 @@ app.use(express.static('public'));
 
 app.use(ping);
 
+
+// User
+app.use(createUser);
+app.use(login);
+
+
+// Hook
+
+app.use(whatsappHook);
+// app.use(whatsappHook);
+// app.use(whatsappHook);
+// app.use(whatsappHook);
 
 sequelize.sync()
   .then(() => {
